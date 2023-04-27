@@ -2,8 +2,8 @@ const mongoose=require('mongoose')
 const dotenv = require('dotenv')
 dotenv.config({path:'./config.env'})
 
-// const DB=`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.o4ffhpq.mongodb.net/${process.env.DATABASE}`
-const DB=`mongodb://admin:Ysec123@172.20.10.104:27017/?`
+const DB=`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.o4ffhpq.mongodb.net/${process.env.DATABASE}`
+
 mongoose.connect(DB,{
     useNewUrlParser: true,
     useCreateIndex: true,
