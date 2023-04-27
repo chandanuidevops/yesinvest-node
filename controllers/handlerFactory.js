@@ -1,9 +1,12 @@
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
-exports.createOne = (Model) =>
+exports.createOne = (Model,fn) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.create(req.body);
+    if(typeof fn==='function'){
+      fn(req, res, next)
+    }
     res.status(201).json({
       status: "success",
       data: {
@@ -44,7 +47,7 @@ exports.getOne = (Model,populateOptions) =>
       data: { data: doc },
     });
   });
-exports.updateOne = (Model) =>
+exports.updateOne = (Model,fn) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -53,7 +56,10 @@ exports.updateOne = (Model) =>
     if (!doc) {
       return next(new AppError("No documents found with this id", 400));
     }
-  
+    if(typeof fn==='function'){
+     
+      fn(req, res, next)
+    }
     res.status(200).json({
       status: "success",
       data: { data: doc },
